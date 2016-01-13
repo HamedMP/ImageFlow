@@ -44,7 +44,7 @@
 <p>The <code>images</code> should be an array of shape <code>[-1, height, width, channel]</code> and has the same rows as the <code>labels</code></p>
 
 <h4>
-<a id="read-distorted-and-normal-dta-from-tfrecords-in-multi-thread-manner" class="anchor" href="#read-distorted-and-normal-dta-from-tfrecords-in-multi-thread-manner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read distorted and normal dta from <code>.tfrecords</code> in multi-thread manner:</h4>
+<a id="read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" class="anchor" href="#read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read distorted and normal data from <code>.tfrecords</code> in multi-thread manner:</h4>
 
 <div class="highlight highlight-source-python"><pre><span class="pl-c"># Distorted images for training</span>
 images, labels <span class="pl-k">=</span> distorted_inputs(<span class="pl-smi">filename</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>../my_data_raw/train.tfrecords<span class="pl-pds">'</span></span>, <span class="pl-smi">batch_size</span><span class="pl-k">=</span>FLAGS.batch_size,
