@@ -21,7 +21,7 @@ convert_images(images, labels, filename)
 
 The `images` should be an array of shape `[-1, height, width, channel]` and has the same rows as the `labels`
 
-#### Read distorted and normal dta from `.tfrecords` in multi-thread manner:
+#### Read distorted and normal data from `.tfrecords` in multi-thread manner:
 ```python
 # Distorted images for training
 images, labels = distorted_inputs(filename='../my_data_raw/train.tfrecords', batch_size=FLAGS.batch_size,
