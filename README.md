@@ -1,51 +1,42 @@
 # ImageFlow
-A simple wrapper of TensorFlow for Image I/O in pure tensor flow format
+A simple wrapper of TensorFlow for Converting, Importing (and Soon, Training) Images in tensorflow.
 
-You can read all PNG and JPG/JPEG images in a directory with TensorFlow buil-in functions to boost speed.
-Supported formats by TensorFlow are: PNG, JPG/JPEG
-
-Currently it reads all PNG/JPG/JPEG images in a directory, the way most of the machine learning problems organized.
-
-Return: A Tensor (numpy array) of object of type uint8. 3-D with shape [height, width, channels]
+Installation:
+```
+pip install imageflow
+```
 
 Usage:
-  Include the file in your project.
-  ```python
-    image_list = read_images(path_to_dir) # 'path to the directory of your training images, JPG/PNG only
-  ```
-If you want to visualize it:
-  ```python
-    PIL.Image.show(Image.fromarray(image_list[0])) # You can use any library to show it, PIL, CV2, ...
-  ```
-If you don't want to use additional file in your project and just want to know how to import an image with TensorFlow:
+
 ```python
-    filename_queue = tf.train.string_input_producer(['/Users/HANEL/Desktop/tf.png']) #  list of files to read
-  
-    reader = tf.WholeFileReader()
-    key, value = reader.read(filename_queue)
-  
-    my_img = tf.image.decode_png(value) # use png or jpg decoder based on your files.
-  
-    init_op = tf.initialize_all_variables()
-    with tf.Session() as sess:
-      sess.run(init_op)
+import imageflow
+```
 
-    # Start populating the filename queue.
-    
-    coord = tf.train.Coordinator()
-    threads = tf.train.start_queue_runners(coord=coord)
+#### Convert a directory of images and their labels to `.tfrecords`
+Just calling the following function will make a `filename.tfrecords` file in the directory `converted_data` in your projects root(where you call this method).
 
-    for i in range(1): #length of your filename list
-      image = my_img.eval() #here is your image Tensor :) 
+```python
+convert_images(images, labels, filename)
+```
 
-    print(image.shape)
-    Image.show(Image.fromarray(np.asarray(image)))
-    
-    coord.request_stop()
-    coord.join(threads)
-  ```
+The `images` should be an array of shape `[-1, height, width, channel]` and has the same rows as the `labels`
+
+#### Read distorted and normal data from `.tfrecords` in multi-thread manner:
+```python
+# Distorted images for training
+images, labels = distorted_inputs(filename='../my_data_raw/train.tfrecords', batch_size=FLAGS.batch_size,
+                                      num_epochs=FLAGS.num_epochs,
+                                      num_threads=5, imshape=[32, 32, 3], imsize=32)
+
+# Normal images for validation
+val_images, val_labels = inputs(filename='../my_data_raw/validation.tfrecords', batch_size=FLAGS.batch_size,
+                                    num_epochs=FLAGS.num_epochs,
+                                    num_threads=5, imshape=[32, 32, 3])
+```
+
 
 Dependencies:
 
 * TensorFlow
 * Numpy
+* Pillow
