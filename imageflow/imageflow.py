@@ -127,11 +127,12 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
     # Image processing for training the network. Note the many random
     # distortions applied to the image.
 
+    # Removed random_crop in new TensorFlow release.
     # Randomly crop a [height, width] section of the image.
-    distorted_image = tf.image.random_crop(image, [height, width])
+    # distorted_image = tf.image.random_crop(image, [height, width])
     #
     # Randomly flip the image horizontally.
-    distorted_image = tf.image.random_flip_left_right(distorted_image)
+    distorted_image = tf.image.random_flip_left_right(image)
     #
     # Because these operations are not commutative, consider randomizing
     # randomize the order their operation.
