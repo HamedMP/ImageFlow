@@ -23,7 +23,7 @@ setup(name='imageflow',
       packages=['imageflow'],
       zip_safe=False,
 
-      install_requires=['numpy', 'pillow'],
+      install_requires=['numpy', 'Pillow'],
 
       include_package_data=True,
 
