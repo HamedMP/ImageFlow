@@ -20,7 +20,7 @@
 
     <section class="main-content">
       <h1>
-<a id="imageflow" class="anchor" href="#imageflow" aria-hidden="true"><span class="octicon octicon-link"></span></a>ImageFlow</h1>
+<a id="imageflow" class="anchor" href="#imageflow" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ImageFlow</h1>
 
 <p>A simple wrapper of TensorFlow for Converting, Importing (and Soon, Training) Images in tensorflow.</p>
 
@@ -34,7 +34,7 @@
 <div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> imageflow</pre></div>
 
 <h4>
-<a id="convert-a-directory-of-images-and-their-labels-to-tfrecords" class="anchor" href="#convert-a-directory-of-images-and-their-labels-to-tfrecords" aria-hidden="true"><span class="octicon octicon-link"></span></a>Convert a directory of images and their labels to <code>.tfrecords</code>
+<a id="convert-a-directory-of-images-and-their-labels-to-tfrecords" class="anchor" href="#convert-a-directory-of-images-and-their-labels-to-tfrecords" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Convert a directory of images and their labels to <code>.tfrecords</code>
 </h4>
 
 <p>Just calling the following function will make a <code>filename.tfrecords</code> file in the directory <code>converted_data</code> in your projects root(where you call this method).</p>
@@ -44,22 +44,22 @@
 <p>The <code>images</code> should be an array of shape <code>[-1, height, width, channel]</code> and has the same rows as the <code>labels</code></p>
 
 <h4>
-<a id="read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" class="anchor" href="#read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Read distorted and normal data from <code>.tfrecords</code> in multi-thread manner:</h4>
+<a id="read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" class="anchor" href="#read-distorted-and-normal-data-from-tfrecords-in-multi-thread-manner" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Read distorted and normal data from <code>.tfrecords</code> in multi-thread manner:</h4>
 
 <div class="highlight highlight-source-python"><pre><span class="pl-c"># Distorted images for training</span>
-images, labels <span class="pl-k">=</span> distorted_inputs(<span class="pl-smi">filename</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>../my_data_raw/train.tfrecords<span class="pl-pds">'</span></span>, <span class="pl-smi">batch_size</span><span class="pl-k">=</span>FLAGS.batch_size,
-                                      <span class="pl-smi">num_epochs</span><span class="pl-k">=</span>FLAGS.num_epochs,
-                                      <span class="pl-smi">num_threads</span><span class="pl-k">=</span><span class="pl-c1">5</span>, <span class="pl-smi">imshape</span><span class="pl-k">=</span>[<span class="pl-c1">32</span>, <span class="pl-c1">32</span>, <span class="pl-c1">3</span>], <span class="pl-smi">imsize</span><span class="pl-k">=</span><span class="pl-c1">32</span>)
+images, labels <span class="pl-k">=</span> distorted_inputs(<span class="pl-v">filename</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>../my_data_raw/train.tfrecords<span class="pl-pds">'</span></span>, <span class="pl-v">batch_size</span><span class="pl-k">=</span><span class="pl-c1">FLAGS</span>.batch_size,
+                                      <span class="pl-v">num_epochs</span><span class="pl-k">=</span><span class="pl-c1">FLAGS</span>.num_epochs,
+                                      <span class="pl-v">num_threads</span><span class="pl-k">=</span><span class="pl-c1">5</span>, <span class="pl-v">imshape</span><span class="pl-k">=</span>[<span class="pl-c1">32</span>, <span class="pl-c1">32</span>, <span class="pl-c1">3</span>], <span class="pl-v">imsize</span><span class="pl-k">=</span><span class="pl-c1">32</span>)
 
 <span class="pl-c"># Normal images for validation</span>
-val_images, val_labels <span class="pl-k">=</span> inputs(<span class="pl-smi">filename</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>../my_data_raw/validation.tfrecords<span class="pl-pds">'</span></span>, <span class="pl-smi">batch_size</span><span class="pl-k">=</span>FLAGS.batch_size,
-                                    <span class="pl-smi">num_epochs</span><span class="pl-k">=</span>FLAGS.num_epochs,
-                                    <span class="pl-smi">num_threads</span><span class="pl-k">=</span><span class="pl-c1">5</span>, <span class="pl-smi">imshape</span><span class="pl-k">=</span>[<span class="pl-c1">32</span>, <span class="pl-c1">32</span>, <span class="pl-c1">3</span>])</pre></div>
+val_images, val_labels <span class="pl-k">=</span> inputs(<span class="pl-v">filename</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>../my_data_raw/validation.tfrecords<span class="pl-pds">'</span></span>, <span class="pl-v">batch_size</span><span class="pl-k">=</span><span class="pl-c1">FLAGS</span>.batch_size,
+                                    <span class="pl-v">num_epochs</span><span class="pl-k">=</span><span class="pl-c1">FLAGS</span>.num_epochs,
+                                    <span class="pl-v">num_threads</span><span class="pl-k">=</span><span class="pl-c1">5</span>, <span class="pl-v">imshape</span><span class="pl-k">=</span>[<span class="pl-c1">32</span>, <span class="pl-c1">32</span>, <span class="pl-c1">3</span>])</pre></div>
 
 <p>Dependencies:</p>
 
 <ul>
-<li>TensorFlow</li>
+<li>TensorFlow ( =&gt; version 0.7.0)</li>
 <li>Numpy</li>
 <li>Pillow</li>
 </ul>
@@ -72,6 +72,16 @@ val_images, val_labels <span class="pl-k">=</span> inputs(<span class="pl-smi">f
 
     </section>
 
-  
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-70042280-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
