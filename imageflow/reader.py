@@ -82,9 +82,10 @@ def read_and_decode(filename_queue, imshape, normalize=False, flatten=True):
   _, serialized_example = reader.read(filename_queue)
   features = tf.parse_single_example(
     serialized_example,
-    dense_keys=['image_raw', 'label'],
-    # Defaults are not specified since both keys are required.
-    dense_types=[tf.string, tf.int64])
+    features={
+      'image_raw': tf.FixedLenFeature([], tf.string),
+      'label': tf.FixedLenFeature([], tf.int64)
+    })
 
   # Convert from a scalar string tensor (whose single string has
   # length mnist.IMAGE_PIXELS) to a uint8 tensor with shape
@@ -121,7 +122,7 @@ def _read_labels_csv_from(path, num_classes, one_hot=False):
 
   """
   print('Reading labels')
-  with open(os.path.join(path, 'trainLabels.csv'), 'r') as dest_f:
+  with open(os.path.join(path), 'r') as dest_f:
     data_iter = csv.reader(dest_f)
     train_labels = [data for data in data_iter]
 

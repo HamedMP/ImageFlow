@@ -3,15 +3,13 @@ __author__ = 'HANEL'
 from setuptools import setup
 
 setup(name='imageflow',
-      version='0.0.1',
+      version='0.0.2',
 
       description='Import, Convert (and Soon Train) images with TensorFlow',
 
       classifiers=[
-        'Development Status ::  Alpha',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 2.7',
-        'Topic :: Machine Learning :: Tensorlfow',
+        'Programming Language :: Python :: 2.7'
       ],
       keywords='tensorflow image cnn',
 
