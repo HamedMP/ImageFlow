@@ -147,12 +147,12 @@ def train(re_train=True):
     threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
     summary_writer = tf.train.SummaryWriter(FLAGS.train_dirr,
-                                            graph_def=sess.graph_def)
+                                            graph=sess.graph)
 
     if re_train:
 
       # Export graph to import it later in c++
-      # tf.train.write_graph(sess.graph_def, FLAGS.model_dir, 'train.pbtxt') # TODO: uncomment to get graph and use in c++
+      # tf.train.write_graph(sess.graph, FLAGS.model_dir, 'train.pbtxt') # TODO: uncomment to get graph and use in c++
 
       continue_from_pre = False
 
