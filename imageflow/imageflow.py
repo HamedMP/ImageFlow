@@ -29,6 +29,7 @@ __author__ = 'HANEL'
   Twitter: @TheHamedMP
 '''
 
+from numpy import shuffle
 import tensorflow as tf
 
 
@@ -85,6 +86,11 @@ def inputs(filename, batch_size, num_epochs, num_threads,
 
     return images, sparse_labels
 
+def _random_brightness_helper(image):
+    image = tf.image.random_brightness(image, max_delta=63)
+    
+def _random_contrast_helper(image):  
+    image = tf.image.random_contrast(image, lower=0.2, upper=1.8)
 
 def distorted_inputs(filename, batch_size, num_epochs, num_threads,
                      imshape, imsize, num_examples_per_epoch=128):
@@ -134,12 +140,11 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
     # Randomly flip the image horizontally.
     distorted_image = tf.image.random_flip_left_right(image)
     #
-    # Because these operations are not commutative, consider randomizing
-    # randomize the order their operation.
-    distorted_image = tf.image.random_brightness(distorted_image,
-                                                 max_delta=63)
-    distorted_image = tf.image.random_contrast(distorted_image,
-                                               lower=0.2, upper=1.8)
+    # Randomly apply image transformations in random_functions list
+    random_functions = [_random_brightness_helper, _random_contrast_helper]
+    shuffle(random_functions)
+    for fcn in random_functions:
+        fcn(distorted_image)
 
     # # Subtract off the mean and divide by the variance of the pixels.
     float_image = tf.image.per_image_whitening(distorted_image)
