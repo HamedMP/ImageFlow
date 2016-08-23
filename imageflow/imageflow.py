@@ -29,7 +29,7 @@ __author__ = 'HANEL'
   Twitter: @TheHamedMP
 '''
 
-from numpy import shuffle
+from numpy.random import shuffle
 import tensorflow as tf
 
 
@@ -44,7 +44,7 @@ def inputs(filename, batch_size, num_epochs, num_threads,
        train forever.
     num_threads: Number of reader workers to enqueue
     imshape: The shape of image in the format
-    num_examples_per_epoch:
+    num_examples_per_epoch: Number of images to use per epoch
 
   Returns:
     A tuple (images, labels), where:
@@ -87,26 +87,26 @@ def inputs(filename, batch_size, num_epochs, num_threads,
     return images, sparse_labels
 
 def _random_brightness_helper(image):
-    image = tf.image.random_brightness(image, max_delta=63)
+  return tf.image.random_brightness(image, max_delta=63)
     
 def _random_contrast_helper(image):  
-    image = tf.image.random_contrast(image, lower=0.2, upper=1.8)
+  return tf.image.random_contrast(image, lower=0.2, upper=1.8)
 
 def distorted_inputs(filename, batch_size, num_epochs, num_threads,
-                     imshape, imsize, num_examples_per_epoch=128):
+                     imshape, num_examples_per_epoch=128, flatten=True):
   """Construct distorted input for training using the Reader ops.
 
   Raises:
     ValueError: if no data_dir
 
   Args:
-    filename:
-    batch_size:
-    num_epochs:
-    num_threads:
-    imshape:
-    imsize:
-    num_examples_per_epoch:
+    filename: The name of the file containing the images
+    batch_size: The number of images per batch
+    num_epochs: The number of epochs passed to string_input_producer
+    num_threads: The number of threads passed to shuffle_batch
+    imshape: Shape of image in [height, width, n_channels] format
+    num_examples_per_epoch: Number of images to use per epoch
+    flatten: Whether to flatten image after image transformations
 
   Returns:
     images: Images. 4D tensor of [batch_size, IMAGE_SIZE, IMAGE_SIZE, 3] size.
@@ -124,11 +124,8 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
     # queue.
     image, label = reader.read_and_decode(filename_queue, imshape)
 
-    # Reshape to [32, 32, 3] as distortion methods need this shape
+    # Reshape to imshape as distortion methods need this shape
     image = tf.reshape(image, imshape)
-
-    height = imsize
-    width = imsize
 
     # Image processing for training the network. Note the many random
     # distortions applied to the image.
@@ -144,14 +141,17 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
     random_functions = [_random_brightness_helper, _random_contrast_helper]
     shuffle(random_functions)
     for fcn in random_functions:
-        fcn(distorted_image)
+      distorted_image = fcn(distorted_image)
 
     # # Subtract off the mean and divide by the variance of the pixels.
     float_image = tf.image.per_image_whitening(distorted_image)
 
-    num_elements = 1
-    for i in imshape: num_elements = num_elements * i
-    image = tf.reshape(float_image, [num_elements])
+    if flatten:
+      num_elements = 1
+      for i in imshape: num_elements = num_elements * i
+      image = tf.reshape(float_image, [num_elements])
+    else:
+      image = float_image
 
     # Ensure that the random shuffling has good mixing properties.
     min_fraction_of_examples_in_queue = 0.4
