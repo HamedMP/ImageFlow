@@ -144,7 +144,7 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
       distorted_image = fcn(distorted_image)
 
     # # Subtract off the mean and divide by the variance of the pixels.
-    float_image = tf.image.per_image_whitening(distorted_image)
+    float_image = tf.image.per_image_standardization(distorted_image)
 
     if flatten:
       num_elements = 1
