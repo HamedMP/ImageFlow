@@ -13,6 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
+from __future__ import print_function
+
 __author__ = 'HANEL'
 
 import os
@@ -21,7 +23,7 @@ import csv
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-import utils
+from .utils import dense_to_one_hot
 
 
 def _read_raw_images(path, is_directory=True):
@@ -95,7 +97,7 @@ def read_and_decode(filename_queue, imshape, normalize=False, flatten=True):
   if flatten:
     num_elements = 1
     for i in imshape: num_elements = num_elements * i
-    print num_elements
+    print(num_elements)
     image = tf.reshape(image, [num_elements])
     image.set_shape(num_elements)
   else:
@@ -129,7 +131,7 @@ def _read_labels_csv_from(path, num_classes, one_hot=False):
   train_labels = np.array(train_labels, dtype=np.uint32)
 
   if one_hot:
-    labels_one_hot = utils.dense_to_one_hot(train_labels, num_classes)
+    labels_one_hot = dense_to_one_hot(train_labels, num_classes)
     labels_one_hot = np.asarray(labels_one_hot)
     return labels_one_hot
 
