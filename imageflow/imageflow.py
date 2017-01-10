@@ -13,8 +13,8 @@
 # limitations under the License.
 # ==============================================================================
 
-import convert_to_records
-import reader
+from .convert_to_records import convert_to
+from .reader import read_and_decode
 
 __author__ = 'HANEL'
 
@@ -64,7 +64,7 @@ def inputs(filename, batch_size, num_epochs, num_threads,
 
     # Even when reading in multiple threads, share the filename
     # queue.
-    image, label = reader.read_and_decode(filename_queue, imshape, normalize=True)
+    image, label = read_and_decode(filename_queue, imshape, normalize=True)
 
     # Convert from [0, 255] -> [-0.5, 0.5] floats. The normalize param in read_and_decode will do the same job.
     # image = tf.cast(image, tf.float32)
@@ -88,8 +88,8 @@ def inputs(filename, batch_size, num_epochs, num_threads,
 
 def _random_brightness_helper(image):
   return tf.image.random_brightness(image, max_delta=63)
-    
-def _random_contrast_helper(image):  
+
+def _random_contrast_helper(image):
   return tf.image.random_contrast(image, lower=0.2, upper=1.8)
 
 def distorted_inputs(filename, batch_size, num_epochs, num_threads,
@@ -122,7 +122,7 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
 
     # Even when reading in multiple threads, share the filename
     # queue.
-    image, label = reader.read_and_decode(filename_queue, imshape)
+    image, label = read_and_decode(filename_queue, imshape)
 
     # Reshape to imshape as distortion methods need this shape
     image = tf.reshape(image, imshape)
@@ -196,8 +196,8 @@ def convert_split_images(images, labels, train_validation_split=10):
   train_labels = labels[validation_size:]
 
   # Convert to Examples and write the result to TFRecords.
-  convert_to_records.convert_to(train_images, train_labels, 'train')
-  convert_to_records.convert_to(validation_images, validation_labels, 'validation')
+  convert_to(train_images, train_labels, 'train')
+  convert_to(validation_images, validation_labels, 'validation')
 
 def convert_images(images, labels, filename):
   """Construct distorted input for CIFAR training using the Reader ops.
@@ -218,4 +218,4 @@ def convert_images(images, labels, filename):
                                              (images.shape[0], labels.shape[0])
 
   # Convert to Examples and write the result to TFRecords.
-  convert_to_records.convert_to(images, labels, filename)
+  convert_to(images, labels, filename)
