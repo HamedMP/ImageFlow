@@ -130,11 +130,11 @@ def read_and_decode(filename_queue):
 
 
 def inputs(train=True, batch_size=FLAGS.batch_size, num_epochs=FLAGS.num_epochs):
-  """Reads input ckpt num_epochs times.
+  """Reads input.py ckpt num_epochs times.
   Args:
     train: Selects between the training (True) and validation (False) ckpt.
     batch_size: Number of examples per returned batch.
-    num_epochs: Number of times to read the input ckpt, or 0/None to
+    num_epochs: Number of times to read the input.py ckpt, or 0/None to
        train forever.
   Returns:
     A tuple (images, labels), where:
@@ -150,7 +150,7 @@ def inputs(train=True, batch_size=FLAGS.batch_size, num_epochs=FLAGS.num_epochs)
   filename = os.path.join(FLAGS.train_dir,
                           TRAIN_FILE if train else VALIDATION_FILE)
 
-  with tf.name_scope('input'):
+  with tf.name_scope('input.py'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs, name='string_input_producer')
 
@@ -184,7 +184,7 @@ def inputs(train=True, batch_size=FLAGS.batch_size, num_epochs=FLAGS.num_epochs)
 
 
 def distorted_inputs(batch_size=FLAGS.batch_size, num_epochs=FLAGS.num_epochs):
-  """Construct distorted input for CIFAR training using the Reader ops.
+  """Construct distorted input.py for CIFAR training using the Reader ops.
 
   Raises:
     ValueError: if no data_dir
@@ -198,7 +198,7 @@ def distorted_inputs(batch_size=FLAGS.batch_size, num_epochs=FLAGS.num_epochs):
   filename = os.path.join(FLAGS.train_dir,
                           TRAIN_FILE)
 
-  with tf.name_scope('input'):
+  with tf.name_scope('input.py'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs, name='string_DISTORTED_input_producer')
 

@@ -22,7 +22,7 @@ Data_PATH = '../../mcifar_data/'
 
 
 # Network Parameters
-n_input = 32 * 32 * 3  # Cifar ckpt input (img shape: 32*32)
+n_input = 32 * 32 * 3  # Cifar ckpt input.py (img shape: 32*32)
 
 out_conv_1 = 64
 out_conv_2 = 64
@@ -62,7 +62,7 @@ def inference(images):
     logits: Output tensor with the   computed logits.
   """
 
-  # Reshape input picture
+  # Reshape input.py picture
   print('In Inference ', images.get_shape(), type(images))
 
   images = tf.reshape(images, shape=[-1, 32, 32, 3])
@@ -71,7 +71,7 @@ def inference(images):
 
   # Store layers weight & bias
   _weights = {
-    'wc1': tf.Variable(tf.random_normal([5, 5, 3, out_conv_1], stddev=1e-3)),  # 5x5 conv, 3 input, 64 outputs
+    'wc1': tf.Variable(tf.random_normal([5, 5, 3, out_conv_1], stddev=1e-3)),  # 5x5 conv, 3 input.py, 64 outputs
     'wc2': tf.Variable(tf.random_normal([5, 5, out_conv_1, out_conv_2], stddev=1e-3)),
   # 5x5 conv, 64 inputs, 64 outputs
     'wd1': tf.Variable(tf.random_normal([out_conv_2 * 8 * 8, n_hidden_1], stddev=1e-3)),
@@ -112,7 +112,7 @@ def inference(images):
   # Fully connected layer 1
   with tf.name_scope('Dense1'):
     dense1 = tf.reshape(conv2,
-                        [-1, _weights['wd1'].get_shape().as_list()[0]])  # Reshape conv2 output to fit dense layer input
+                        [-1, _weights['wd1'].get_shape().as_list()[0]])  # Reshape conv2 output to fit dense layer input.py
     dense1 = tf.nn.relu_layer(dense1, _weights['wd1'], _biases['bd1'])  # Relu activation
     dense1 = tf.nn.dropout(dense1, _dropout)  # Apply Dropout
 

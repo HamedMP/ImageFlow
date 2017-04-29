@@ -34,12 +34,12 @@ import tensorflow as tf
 
 def inputs(filename, batch_size, num_epochs, num_threads,
            imshape, num_examples_per_epoch=128):
-  """Reads input tfrecord file num_epochs times. Use it for validation.
+  """Reads input.py tfrecord file num_epochs times. Use it for validation.
 
   Args:
     filename: The path to the .tfrecords file to be read
     batch_size: Number of examples per returned batch.
-    num_epochs: Number of times to read the input ckpt, or 0/None to
+    num_epochs: Number of times to read the input.py ckpt, or 0/None to
        train forever.
     num_threads: Number of reader workers to enqueue
     imshape: The shape of image in the format
@@ -57,7 +57,7 @@ def inputs(filename, batch_size, num_epochs, num_threads,
   if not num_epochs:
     num_epochs = None
 
-  with tf.name_scope('input'):
+  with tf.name_scope('input.py'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs, name='string_input_producer')
 
@@ -88,7 +88,7 @@ def inputs(filename, batch_size, num_epochs, num_threads,
 
 def distorted_inputs(filename, batch_size, num_epochs, num_threads,
                      imshape, imsize, num_examples_per_epoch=128):
-  """Construct distorted input for training using the Reader ops.
+  """Construct distorted input.py for training using the Reader ops.
 
   Raises:
     ValueError: if no data_dir
@@ -110,7 +110,7 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
   if not num_epochs:
     num_epochs = None
 
-  with tf.name_scope('input'):
+  with tf.name_scope('input.py'):
     filename_queue = tf.train.string_input_producer(
       [filename], num_epochs=num_epochs, name='string_DISTORTED_input_producer')
 
@@ -165,7 +165,7 @@ def distorted_inputs(filename, batch_size, num_epochs, num_threads,
 
 
 def convert_split_images(images, labels, train_validation_split=10):
-  """Construct distorted input for CIFAR training using the Reader ops.
+  """Construct distorted input.py for CIFAR training using the Reader ops.
 
   Raises:
     ValueError: if labels and images count doesn't match.
@@ -195,7 +195,7 @@ def convert_split_images(images, labels, train_validation_split=10):
   convert_to_records.convert_to(validation_images, validation_labels, 'validation')
 
 def convert_images(images, labels, filename):
-  """Construct distorted input for CIFAR training using the Reader ops.
+  """Construct distorted input.py for CIFAR training using the Reader ops.
 
   Raises:
     ValueError: if labels and images count doesn't match.

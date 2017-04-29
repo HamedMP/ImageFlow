@@ -66,7 +66,7 @@ NEW_LINE = '\n'
 
 
 def placeholder_inputs(batch_size):
-  """Generate placeholder variables to represent the the input tensors.
+  """Generate placeholder variables to represent the the input.py tensors.
   These placeholders are used as inputs by the rest of the model building
   code and will be fed from the downloaded ckpt in the .run() loop, below.
   Args:

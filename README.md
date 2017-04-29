@@ -1,3 +1,7 @@
+# Notice - This version of imageflow is no longer under maintenance and major update is required.
+**The tensorflow version is too old and the library is not working as expected. You are welcome to add your use-cases in the Issues as Feature request to be considered in the new versions. Sorry for the inconvenience.**
+
+
 # ImageFlow
 A simple wrapper of TensorFlow for Converting, Importing (and Soon, Training) Images in tensorflow.
 
