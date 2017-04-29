@@ -26,6 +26,6 @@
 """
 
 from .imageflow import *
-from .reader import read_and_decode
+from .reader import *
 
 __author__ = 'HANEL'
